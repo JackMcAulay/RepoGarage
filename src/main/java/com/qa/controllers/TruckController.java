@@ -25,22 +25,50 @@ public class TruckController implements GarageController<Truck> {
 	}
 
 	public Truck create() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("How many wheels does the truck have?");
+		int wheels = input.getInt();
+		System.out.println("What colour is it?");
+		String colour = input.getString();
+		System.out.println("What capacity?");
+		int capacity = input.getInt();
+		
+		Truck newTruck = new Truck(wheels, colour, capacity);
+		return truckDAO.create(newTruck);
 	}
 
 	public boolean delete() {
-		// TODO Auto-generated method stub
-		return false;
+		readAll();
+		System.out.println("ID of the truck you wish to delete?");
+		int id = input.getInt();
+		return truckDAO.delete(id);
 	}
 
 	public List<Truck> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Truck> all = truckDAO.readAll();
+		for(Truck truck:all) {
+			System.out.println(truck);
+		}
+		return all;
 	}
 
 	public Truck update() {
-		// TODO Auto-generated method stub
-		return null;
+		readAll();
+		
+		System.out.println("ID of the truck you wish to Update?");
+		int id = input.getInt();
+		Truck myTruck = truckDAO.read(id);
+		System.out.println("How many wheels does the truck have?");
+		int wheels = input.getInt();
+		System.out.println("What colour is it?");
+		String colour = input.getString();
+		System.out.println("What capacity?");
+		int capacity = input.getInt();
+		
+		if(truckDAO.delete(id)) {
+			return truckDAO.create(myTruck);
+		} else {
+			System.out.println("Failed");
+			return null;
+		}
 	}
 }

@@ -1,8 +1,10 @@
 package com.qa.menu;
 
 import com.qa.controllers.CarController;
+import com.qa.controllers.TruckController;
 import com.qa.controllers.GarageController;
 import com.qa.dao.CarDAO;
+import com.qa.dao.TruckDAO;
 import com.qa.utils.UserInput;
 
 public class Menu {
@@ -11,10 +13,13 @@ public class Menu {
 
 	GarageController<?> active;
 	CarController carController;
+	TruckController truckController;
 
 	public Menu() {
 		CarDAO carDAO = new CarDAO();
+		TruckDAO truckDAO = new TruckDAO();
 		carController = new CarController(carDAO);
+		truckController = new TruckController(truckDAO);
 	}
 
 	public void start() {
@@ -32,7 +37,8 @@ public class Menu {
 				action();
 				break;
 			case 2:
-				System.out.println("Unimplemented");
+				active = truckController;
+				action();
 				break;
 			case 3:
 				exit = true;
